@@ -1,0 +1,197 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Test Documentation",
+        "description": "API Specification for Test Documentation",
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/api/auth/login": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Login",
+                "description": "Login to access RESTful API by email and password",
+                "operationId": "f77777235d676b651c9465807d8f9485",
+                "requestBody": {
+                    "description": "Login Request Body",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "email",
+                                    "password"
+                                ],
+                                "properties": {
+                                    "email": {
+                                        "type": "string",
+                                        "maxLength": 255,
+                                        "minLength": 1
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "maxLength": 255,
+                                        "minLength": 1
+                                    }
+                                },
+                                "type": "object"
+                            },
+                            "examples": {
+                                "Admin": {
+                                    "summary": "Account Admin",
+                                    "description": "Account with Admin privilege",
+                                    "value": {
+                                        "username": "admin@admin.com",
+                                        "password": "admin"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Response"
+                                },
+                                "examples": {
+                                    "Success": {
+                                        "summary": "Login Success",
+                                        "description": "Response Login Success",
+                                        "value": {
+                                            "success": true,
+                                            "message": "Login Success",
+                                            "data": {
+                                                "access_token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sb2NhbGhvc3RcL3dvcmtcL3RlbGtvbXNhdFwvbWNwYy10dnJpXC9wdWJsaWNcL2FwaVwvbG9naW4iLCJpYXQiOjE2NDE5NTE2MTYsImV4cCI6MTY0MTk1NTIxNiwibmJmIjoxNjQxOTUxNjE2LCJqdGkiOiJiVUtIdllNSVZYQUZmV0NTIiwic3ViIjoxLCJwcnYiOiIyM2JkNWM4OTQ5ZjYwMGFkYjM5ZTcwMWM0MDA4NzJkYjdhNTk3NmY3IiwidXNlciI6eyJpZCI6MSwidXNlcm5hbWUiOiJhZG1pbiIsIm5hbWUiOiJhZG1pbiIsImNyZWF0ZWRfYXQiOiIyMDIyLTAxLTExVDEyOjU5OjQzLjAwMDAwMFoiLCJ1cGRhdGVkX2F0IjoiMjAyMi0wMS0xMVQxMjo1OTo0My4wMDAwMDBaIn19.yva-99wyv_10doR_j4M2Laxj9PBjgWffRikV-SSOsh4",
+                                                "token_type": "Bearer",
+                                                "expires_in": 0
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Response"
+                                },
+                                "examples": {
+                                    "Incorrect Username or Password": {
+                                        "summary": "Incorrect Username or Password",
+                                        "description": "Response Incorrect Username or Password",
+                                        "value": {
+                                            "success": false,
+                                            "message": "Incorrect Username or Password",
+                                            "data": null
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Response"
+                                },
+                                "examples": {
+                                    "Invalid Input": {
+                                        "summary": "Invalid Input",
+                                        "description": "Response Invalid Input",
+                                        "value": {
+                                            "success": false,
+                                            "message": "Unprocessable Entity",
+                                            "data": {
+                                                "email": [
+                                                    "The email field is required"
+                                                ],
+                                                "password": [
+                                                    "The password field is required"
+                                                ]
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Response"
+                                },
+                                "examples": {
+                                    "Internal Server Error": {
+                                        "$ref": "#/components/examples/ResponseInternalServerError"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "Response": {
+                "description": "Schema Response",
+                "properties": {
+                    "success": {
+                        "type": "boolean"
+                    },
+                    "message": {
+                        "type": "string"
+                    },
+                    "data": {
+                        "type": "object",
+                        "nullable": true
+                    }
+                },
+                "type": "object"
+            }
+        },
+        "examples": {
+            "ResponseInternalServerError": {
+                "summary": "Internal Server Error",
+                "description": "Response Internal Server Error",
+                "value": {
+                    "success": false,
+                    "message": "Internal Server Error",
+                    "data": null
+                }
+            },
+            "ResponseNotFound": {
+                "summary": "Not Found",
+                "description": "Response Not Found",
+                "value": {
+                    "success": false,
+                    "message": "Not Found",
+                    "data": null
+                }
+            },
+            "ResponseUnauthorized": {
+                "summary": "Unauthorized",
+                "description": "Response Unauthorized",
+                "value": {
+                    "success": false,
+                    "message": "Unauthorized",
+                    "data": null
+                }
+            }
+        }
+    }
+}
